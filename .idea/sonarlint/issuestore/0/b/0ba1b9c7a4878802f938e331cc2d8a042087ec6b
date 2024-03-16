@@ -1,0 +1,9 @@
+
+l
+java:S2095"JUse try-with-resources or close this "HSSFWorkbook" in a "finally" clause.(Ã‹Â˜ÿÿÿÿÿ8å„Ï¼ä1
+Z
+java:S1854/"8Remove this useless assignment to local variable "cell".(„ İ¦şÿÿÿÿ8ç„Ï¼ä1
+L
+java:S1197"*Move the array designators [] to the type.(¡şÏÖøÿÿÿÿ8ç„Ï¼ä1
+^	java:S899"BDo something with the "boolean" value returned by "createNewFile".(úÜ²¥8é„Ï¼ä1
+L	java:S1066"+Replace this use of System.out by a logger.(ãã„ıÿÿÿÿ8ï„Ï¼ä1
