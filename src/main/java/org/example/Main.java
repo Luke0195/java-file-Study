@@ -6,10 +6,11 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.example.entities.Person;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 public class Main {
     public static void main(String args[]){
@@ -29,11 +30,6 @@ public class Main {
             int numerOfLines = 0;
             for(Person p: persons){
                 Row line = hssfSheet.createRow(numerOfLines++);
-                line.createCell(0).setCellValue("Id");
-                line.createCell(0).setCellValue("Nome");
-                line.createCell(0).setCellValue("E-mail");
-                line.createCell(0).setCellValue("Data de Nascimento");
-
                 int cell = 0;
                 Cell fieldCell = line.createCell(cell++);
                 fieldCell.setCellValue(p.getId().toString());
@@ -51,6 +47,30 @@ public class Main {
             hssfWorkbook.write(fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();
+            hssfWorkbook.close();
+            FileInputStream entrada = new FileInputStream(file);
+            HSSFWorkbook hssfWorkbook1 = new HSSFWorkbook(entrada);
+            HSSFSheet spreadSheet = hssfWorkbook1.getSheetAt(0);
+            Iterator<Row> lines = spreadSheet.rowIterator();
+            Person person = new Person();
+            while(lines != null){
+                Row line = lines.next();
+                Iterator<Cell> cells = line.cellIterator();
+                while(cells.hasNext()){
+                    Cell cell = cells.next();
+                    switch(cell.getColumnIndex()){
+                        case 0:
+                            person.setName(cell.getStringCellValue());
+                            break;
+                        case 1:
+                            person.setEmail(cell.getStringCellValue());
+                            break;
+                        case 2:
+                            person.setBirthDate(cell.getStringCellValue());
+                    }
+                }
+            }
+            System.out.println(person);
             System.out.println("Planilha criada");
         }catch (Exception e){
             e.printStackTrace();
